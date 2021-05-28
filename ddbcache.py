@@ -1,4 +1,5 @@
 import boto3
+import os
 import time
 from botocore.exceptions import ClientError
 
@@ -6,7 +7,7 @@ from botocore.exceptions import ClientError
 class DDBCache(object):
     def __init__(self, table_name: str):
         self._sess = boto3.Session()
-        ddb = self._sess.resource('dynamodb')
+        ddb = self._sess.resource('dynamodb', region_name=os.environ.get("AWS_REGION"))
         self._table = ddb.Table(table_name)
 
     def get(self, repo_slug: str):
