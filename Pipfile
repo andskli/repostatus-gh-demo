@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+flake8 = "*"
+requests = "*"
+boto3 = "*"
+PyGithub = "==1.53"  # Locking to older version to avoid pynacl dependency which is slow compiling
+
+[dev-packages]
+flake8 = "*"
+
+[requires]
+python_version = "3.8"
