@@ -1,0 +1,45 @@
+Description: Resources necessary for running the app
+
+Resources:
+  Table:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: repostatus_cache
+      AttributeDefinitions:
+        - AttributeName: repoSlug
+          AttributeType: S
+      KeySchema:
+        - AttributeName: repoSlug
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: true
+  
+  Role:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ['tasks.apprunner.amazonaws.com']
+            Action: ['sts:AssumeRole']
+      Path: /
+      Policies:
+        - PolicyName: ddb-access
+          PolicyDocument:
+            Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:GetItem
+                - dynamodb:BatchGetItem
+                - dynamodb:Scan
+                - dynamodb:Query
+                - dynamodb:ConditionCheckItem
+                - dynamodb:PutItem
+                - dynamodb:UpdateItem
+                - dynamodb:BatchWriteItem
+                - dynamodb:DeleteItem
+              Resource:
+                - !GetAtt Table.Arn
