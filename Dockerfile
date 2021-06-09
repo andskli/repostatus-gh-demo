@@ -5,4 +5,4 @@ ADD . /app
 RUN pip install pipenv
 RUN pipenv install
 
-CMD ["pipenv", "run", "flask", "run"]
+CMD ["pipenv", "run", "flask", "run", "-p", "8080"]
