@@ -43,3 +43,11 @@ Resources:
                 - dynamodb:DeleteItem
               Resource:
                 - !GetAtt Table.Arn
+
+Outputs:
+  RoleName:
+    Description: Name of the role created for accessing DynamoDB
+    Value: !Ref Role
+  TableName:
+    Description: DynamoDB table name
+    Value: !Ref Table
