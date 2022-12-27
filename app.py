@@ -19,6 +19,7 @@ def repo(repo_slug):
         'repo_slug': repo_slug,
         'data': {}
     }
+    app.logger.debug("Looking into DDB cache")
     cached = ddb.get(repo_slug)
     if cached:
         app.logger.debug("Found repo in DDB cache")
